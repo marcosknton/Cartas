@@ -1,5 +1,6 @@
 package com.example.a46453895j.cartas;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,12 @@ public class CartasFragment extends Fragment {
     private ArrayAdapter<String> adapter;
 
     public CartasFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
