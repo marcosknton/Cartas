@@ -1,6 +1,7 @@
 package com.example.a46453895j.cartas;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import static android.R.attr.id;
  */
 public class CartasFragment extends Fragment {
 
-    private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<String> items ;
     private ArrayAdapter<String> adapter;
 
     public CartasFragment() {
@@ -45,7 +46,7 @@ public class CartasFragment extends Fragment {
                 "Los 400 golpes",
                 "El odio",
                 "El padrino",
-                "El padrino. Parte II",
+                "El padrino Parte II",
                 "Ocurrió cerca de su casa",
                 "Infiltrados",
                 "Umberto D."
@@ -75,6 +76,7 @@ public class CartasFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void refresh() {
+    private void refresh(){
+        Snackbar.make(getView(),"esto funsiona",Snackbar.LENGTH_LONG).show();
     }
 }
