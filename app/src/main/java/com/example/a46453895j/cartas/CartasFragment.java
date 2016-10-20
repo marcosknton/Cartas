@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,6 +78,10 @@ public class CartasFragment extends Fragment {
     }
 
     private void refresh(){
-        Snackbar.make(getView(),"esto funsiona",Snackbar.LENGTH_LONG).show();
+        CartasApi api=new CartasApi();
+        String result= api.getTituloCartas();
+        Log.d("DEBUG",result);
+        //System.out.println(result);
+        //Snackbar.make(getView(),result,Snackbar.LENGTH_LONG).show();
     }
 }
