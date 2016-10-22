@@ -1,5 +1,6 @@
 package com.example.a46453895j.cartas;
 
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static android.R.attr.id;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -29,6 +28,7 @@ public class CartasFragment extends Fragment {
 
     public CartasFragment() {
     }
+
     //agregamos el menu en el fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,25 +43,28 @@ public class CartasFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_cartas, container, false);
         ListView lvCartas = (ListView) view.findViewById(R.id.LvCartas);
 
-        String[] data = {
-                "Los 400 golpes",
-                "El odio",
-                "El padrino",
-                "El padrino Parte II",
-                "Ocurrió cerca de su casa",
-                "Infiltrados",
-                "Umberto D."
-        };
+        CartasApi resultado=new CartasApi();
+        //items=resultado.getOcartas();
 
+        String[] data = {
+                "carta 1",
+                "carta 2",
+                "carta 3",
+                "carta 4",
+
+        };
         //con el metodo asList podemos introducir dentro de un array dinamica mas de una string a traves de un array de strings
-        items = new ArrayList<>(Arrays.asList(data));
+       items = new ArrayList<>(Arrays.asList(data));
 
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, por el texview que con tiene los datos y por los datos de cada item
         adapter = new ArrayAdapter<>(getContext(), R.layout.titulo_cartas, R.id.TvTitulos, items);
         lvCartas.setAdapter(adapter);
 
+
         return view;
     }
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -71,17 +74,14 @@ public class CartasFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.MiRefresh){
-            refresh();
+            Snackbar.make(getView(),"mensaje",Snackbar.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void refresh(){
-        CartasApi api=new CartasApi();
-        String result= api.getTituloCartas();
-        Log.d("DEBUG",result);
-        //System.out.println(result);
-        //Snackbar.make(getView(),result,Snackbar.LENGTH_LONG).show();
+    public void refresh(){
+
     }
+
 }

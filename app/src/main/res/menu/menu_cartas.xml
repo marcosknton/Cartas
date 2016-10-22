@@ -3,5 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.a46453895j.cartas.Cartas">
     <item android:title="refresh"
-        android:id="@+id/MiRefresh" />
+        android:id="@+id/MiRefresh"
+        android:visible="true" />
 </menu>
