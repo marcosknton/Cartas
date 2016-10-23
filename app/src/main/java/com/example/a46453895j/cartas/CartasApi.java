@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class CartasApi {
 
-    private  String url= "https://api.magicthegathering.io/v1/cards?pageSize=50";
+    private  String url= "https://api.magicthegathering.io/v1/cards?pageSize=100";
 
     /**
      *
