@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.a46453895j.cartas.CartasFragment"
-    tools:showIn="@layout/activity_cartas">
+    tools:showIn="@layout/activity_cartas"
+    >
+
 
     <ListView
         android:layout_width="match_parent"
@@ -21,5 +23,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+
+        />
 </android.support.constraint.ConstraintLayout>
