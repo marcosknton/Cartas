@@ -25,8 +25,8 @@ import java.util.Arrays;
  */
 public class CartasFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Ocarta> items;
+    private ArrayAdapter<Ocarta> adapter;
 
     public CartasFragment() {
     }
@@ -45,7 +45,7 @@ public class CartasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cartas, container, false);
         ListView lvCartas = (ListView) view.findViewById(R.id.LvCartas);
 
-
+/*
         String[] data = {
                 "carta 1",
                 "carta 2",
@@ -55,7 +55,8 @@ public class CartasFragment extends Fragment {
         };
         //con el metodo asList podemos introducir dentro de un array dinamica mas de una string a traves de un array de strings
         items = new ArrayList<>(Arrays.asList(data));
-
+*/
+        items = new ArrayList<>();
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, por el texview que con tiene los datos y por los datos de cada item
         adapter = new ArrayAdapter<>(getContext(), R.layout.titulo_cartas, R.id.TvTitulos, items);
         lvCartas.setAdapter(adapter);
@@ -80,7 +81,11 @@ public class CartasFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+        public void onStart() {
+            super.onStart();
+            refresh();
+        }
     public void refresh() {
         RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
         refreshAsyncTask.execute();
@@ -112,7 +117,8 @@ public class CartasFragment extends Fragment {
         protected void onPostExecute(ArrayList<Ocarta> cards) {
             adapter.clear();
             for (int i = 0; i < cards.size(); ++i) {
-                adapter.add(cards.get(i).getTitulo());
+                Ocarta carta=new Ocarta("hola");
+                adapter.add(cards.get(i));
             }
         }
     }
