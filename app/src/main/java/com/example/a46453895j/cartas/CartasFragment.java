@@ -1,6 +1,8 @@
 package com.example.a46453895j.cartas;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -90,8 +92,13 @@ public class CartasFragment extends Fragment {
         @Override
         //devuelve un array list de objetos Ocarta() para trabajar en 2 plano
         protected ArrayList<Ocarta> doInBackground(Void... voids) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String rarity=preferences.getString("rarity","Rare");
+            String color=preferences.getString("colors","blue");
             CartasApi api = new CartasApi();
+
             ArrayList<Ocarta> cards = api.getOcartas();
+            //ArrayList<Ocarta> cards =null;
             /*
             for (int i = 0; i < cards.size(); ++i) {
                 Log.d("DEBUG", cards.get(i).toString());
