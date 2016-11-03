@@ -16,17 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.os.AsyncTask;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class CartasFragment extends Fragment {
 
-    private ArrayList<Ocarta> items;
-    private ArrayAdapter<Ocarta> adapter;
+    private ArrayList<String> items;
+    private ArrayAdapter<String> adapter;
 
     public CartasFragment() {
     }
@@ -58,7 +57,7 @@ public class CartasFragment extends Fragment {
 */
         items = new ArrayList<>();
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, por el texview que con tiene los datos y por los datos de cada item
-        adapter = new ArrayAdapter<>(getContext(), R.layout.titulo_cartas, R.id.TvTitulos, items);
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.titulo_cartas, R.id.TvTitulos, items);
         lvCartas.setAdapter(adapter);
 
 
@@ -81,6 +80,7 @@ public class CartasFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+    //metodo que actualiza los datos solo abrir la activity
     @Override
         public void onStart() {
             super.onStart();
@@ -98,18 +98,18 @@ public class CartasFragment extends Fragment {
         //devuelve un array list de objetos Ocarta() para trabajar en 2 plano
         protected ArrayList<Ocarta> doInBackground(Void... voids) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String rarity=preferences.getString("rarity","Rare");
-            String color=preferences.getString("colors","blue");
+            String srare=preferences.getString("rarity"," ");
+            String scolors=preferences.getString("colors"," ");
             CartasApi api = new CartasApi();
 
-            ArrayList<Ocarta> cards = api.getOcartas();
-            //ArrayList<Ocarta> cards =null;
-            /*
-            for (int i = 0; i < cards.size(); ++i) {
-                Log.d("DEBUG", cards.get(i).toString());
+            ArrayList<Ocarta> cards=api.getOcartas();
+            ArrayList<Ocarta> seleccion=new ArrayList<>();
+            for (int i = 0; i < cards.size(); i++) {
+                if (cards.get(i).getRarity().equals(srare)&cards.get(i).getColors().equals(scolors))seleccion.add(cards.get(i));
+
             }
-            */
-            return cards;
+
+            return seleccion;
         }
     //Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
     //de este metodo , extraer en este caso el titulo y añadirlo al adapter, que cargara los datons en el layout.
@@ -117,8 +117,8 @@ public class CartasFragment extends Fragment {
         protected void onPostExecute(ArrayList<Ocarta> cards) {
             adapter.clear();
             for (int i = 0; i < cards.size(); ++i) {
-                Ocarta carta=new Ocarta("hola");
-                adapter.add(cards.get(i));
+                adapter.add(cards.get(i).getTitulo());
+
             }
         }
     }

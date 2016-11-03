@@ -19,13 +19,21 @@
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
 
     <string-array name="pref_opcions_consulta_list_titles">
-        <item>colors</item>
+        <item>Blue</item>
+        <item>White</item>
+        <item>Red</item>
+        <item>Black</item>
+        <item>Green</item>
 
 
     </string-array>
 
     <string-array name="pref_opcions_consulta_list_values">
-        <item>colors</item>
+        <item>Blue</item>
+        <item>White</item>
+        <item>Red</item>
+        <item>Black</item>
+        <item>Green</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->
