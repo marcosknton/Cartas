@@ -19,11 +19,11 @@
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
 
     <string-array name="pref_opcions_consulta_list_titles">
-        <item>Blue</item>
-        <item>White</item>
-        <item>Red</item>
-        <item>Black</item>
-        <item>Green</item>
+        <item>Azul</item>
+        <item>Blanco</item>
+        <item>Rojo</item>
+        <item>Negro</item>
+        <item>Verde</item>
 
 
     </string-array>
