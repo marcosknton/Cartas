@@ -19,13 +19,15 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import static android.R.id.list;
+
 /**
  * A placeholder fragment containing a simple view.
  */
 public class CartasFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Ocarta> items;
+    private CardsAdapter adapter;
 
     public CartasFragment() {
     }
@@ -57,7 +59,7 @@ public class CartasFragment extends Fragment {
 */
         items = new ArrayList<>();
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, por el texview que con tiene los datos y por los datos de cada item
-        adapter = new ArrayAdapter<String>(getContext(), R.layout.titulo_cartas, R.id.TvTitulos, items);
+        adapter = new CardsAdapter(getContext(), R.layout.titulo_cartas, items);
         lvCartas.setAdapter(adapter);
 
 
@@ -100,6 +102,7 @@ public class CartasFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String srare=preferences.getString("rarity"," ");
             String scolors=preferences.getString("colors"," ");
+
             CartasApi api = new CartasApi();
 
             ArrayList<Ocarta> cards=api.getOcartas();
@@ -117,7 +120,7 @@ public class CartasFragment extends Fragment {
         protected void onPostExecute(ArrayList<Ocarta> cards) {
             adapter.clear();
             for (int i = 0; i < cards.size(); ++i) {
-                adapter.add(cards.get(i).getTitulo());
+                adapter.add(cards.get(i));
 
             }
         }

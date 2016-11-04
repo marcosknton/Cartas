@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linearLayout"
@@ -7,9 +9,28 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:id="@+id/TvTipo"
+        app:layout_constraintTop_toBottomOf="@+id/TvTitulos"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/Icarta" />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/Icarta"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="264dp"
+        android:layout_height="60dp"
         android:id="@+id/TvTitulos"
         android:paddingLeft="16dp"
-        android:textAlignment="center"/>
-</LinearLayout>
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="120dp" />
+
+</android.support.constraint.ConstraintLayout>
