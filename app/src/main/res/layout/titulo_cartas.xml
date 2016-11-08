@@ -10,27 +10,53 @@
     <TextView
         android:text="TextView"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:id="@+id/TvTipo"
-        app:layout_constraintTop_toBottomOf="@+id/TvTitulos"
+        android:id="@+id/Tvcolor"
+        android:gravity="right"
+        android:textSize="15sp" android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/Icarta" />
-
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/Icarta"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/TvTipo"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        android:layout_height="40dp" />
 
     <TextView
         android:text="TextView"
-        android:layout_width="264dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/TvTipo"
+        android:gravity="right"
+        android:textSize="15sp" android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/TvTitulos"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <ImageView
+        android:layout_height="120dp"
+        android:id="@+id/Icarta"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toLeftOf="@+id/guideline" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="269dp"
+        android:layout_height="41dp"
         android:id="@+id/TvTitulos"
-        android:paddingLeft="16dp"
-        android:textAlignment="center"
+        android:gravity="right"
+        android:textSize="15sp" android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="120dp" />
+        tools:layout_editor_absoluteX="115dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -25,8 +25,6 @@ public class CardsAdapter extends ArrayAdapter <Ocarta> {
     }
 
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Ocarta carta=getItem(position);
@@ -36,13 +34,15 @@ public class CardsAdapter extends ArrayAdapter <Ocarta> {
             convertView = inflater.inflate(R.layout.titulo_cartas, parent, false);
         }
 
+        TextView color=(TextView) convertView.findViewById(R.id.Tvcolor);
         TextView titulo=(TextView) convertView.findViewById(R.id.TvTitulos);
         TextView tipo=(TextView) convertView.findViewById(R.id.TvTipo);
         ImageView imagen=(ImageView) convertView.findViewById(R.id.Icarta);
 
 
-        titulo.setText(carta.getTitulo());
-        tipo.setText(carta.getTypes());
+        titulo.setText("name: "+carta.getTitulo());
+        tipo.setText("type: "+carta.getTypes());
+        color.setText("color: "+carta.getColors());
         Glide.with(getContext()).load(carta.getImageUrl()).into(imagen);
 
         return convertView;

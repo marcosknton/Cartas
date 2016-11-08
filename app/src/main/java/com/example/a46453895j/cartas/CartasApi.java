@@ -66,39 +66,5 @@ public class CartasApi {
         }
         return lista;
     }
-/*
-    public ArrayList<Ocarta> GetSeleccion(String rareza) {
 
-        ArrayList<Ocarta> seleccion = new ArrayList<>();
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            //creamos un objeto json y como contenido le introducimos el string resultado de la pagina
-            JSONObject json = new JSONObject(JsonResponse);
-            //creamos un array de cada elemento que forma parte de la estrucutra del objeto json ,guiandonos por el elemento que
-            //envueleve toda la estructura que es cards
-            JSONArray jsoncartas = json.getJSONArray("cards");
-            String titulo, rarity,colors, imageUrl, types;
-            //recorremos el array de elementos, extraemos la info que nos interesa y la introducimos como atributo
-            //dentro el objeto Ocarta, que posteriormente guardamos uno por uno en el array de objetos Ocarta
-            for (int i = 0; i < jsoncartas.length(); ++i) {
-                JSONObject object = jsoncartas.getJSONObject(i);
-                titulo = object.getString("name");
-                rarity = object.getString("rarity");
-                colors = object.getString("colors");
-                imageUrl = object.getString("imageUrl");
-                types = object.getString("types");
-
-                if(rarity.equals(rareza)) {
-                    Ocarta carta = new Ocarta(titulo, types, imageUrl, colors, rarity);
-                    seleccion.add(carta);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return seleccion;
-    }
-    */
 }
