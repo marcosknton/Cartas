@@ -2,23 +2,30 @@ package com.example.a46453895j.cartas;
 
 import org.json.JSONArray;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by michus on 19/10/2016.
  */
 
-public class Ocarta {
+public class Ocarta implements Serializable{
 
-    private String titulo,rarity,imageUrl,types,colors;
+    private String titulo,rarity,imageUrl,types,colors,descripcion;
 
 
-    public Ocarta(String titulo, String types, String imageUrl, String rarity,String colors) {
+
+
+
+
+    public Ocarta(String titulo, String types, String imageUrl, String rarity, String colors, String descripcion) {
         this.titulo = titulo;
         this.types = types;
         this.imageUrl = imageUrl;
         this.rarity = rarity;
         this.colors=colors;
+        this.descripcion=descripcion;
+
     }
 
 
@@ -33,6 +40,7 @@ public class Ocarta {
        this.titulo=titulo;
     }
     public void setRarity(String rarity) {this.rarity = rarity;}
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
     public String getRarity() {return rarity;}
     public String getColors() {
@@ -47,6 +55,7 @@ public class Ocarta {
     public String getTitulo() {
         return this.titulo;
     }
+    public String getDescripcion() {return descripcion;}
 
     @Override
     public String toString() {

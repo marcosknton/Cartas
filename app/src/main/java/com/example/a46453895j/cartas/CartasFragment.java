@@ -1,5 +1,6 @@
 package com.example.a46453895j.cartas;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -14,9 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static android.R.id.list;
@@ -58,10 +61,29 @@ public class CartasFragment extends Fragment {
         items = new ArrayList<>(Arrays.asList(data));
 */
         items = new ArrayList<>();
-        //el adaptador estará formado por getcontext,por el layout que repetiremos por item, por el texview que con tiene los datos y por los datos de cada item
+        //el adaptador estará formado por getcontext,por el layout que repetiremos por item, y por los datos de cada item
         adapter = new CardsAdapter(getContext(), R.layout.titulo_cartas, items);
+        //al list view lo inflamos con el adapter
         lvCartas.setAdapter(adapter);
 
+        lvCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        /*con el onitemclickl  podemos realizar cualquier acción al pulsarse sobre un elemento de la lista
+                        Referencia al control lista que ha recibido el click (AdapterView<?> adapterView).
+                        Referencia al objeto View correspondiente al ítem pulsado de la lista (View view).
+                        Posición del elemento pulsado dentro del adaptador de la lista (int i).
+                        Id del elemento pulsado (long l).
+
+                        */
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            Ocarta carta=(Ocarta) adapterView.getItemAtPosition(i);
+                            //intent que cargará la activity
+                            Intent intent=new Intent(getContext(),DetailActivity.class);
+                            intent.putExtra("carta",carta);
+                            startActivity(intent);
+                        }
+                    });
 
         return view;
     }
@@ -99,6 +121,7 @@ public class CartasFragment extends Fragment {
         @Override
         //devuelve un array list de objetos Ocarta() para trabajar en 2 plano
         protected ArrayList<Ocarta> doInBackground(Void... voids) {
+            //creariamos un objeto preference haciendo referencia al metodo de selección a traves de xml string dentro del paquete values y el pref_general dentro del paquetexml
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String srare=preferences.getString("rarity"," ");
             String scolors=preferences.getString("colors"," ");
@@ -120,6 +143,7 @@ public class CartasFragment extends Fragment {
         protected void onPostExecute(ArrayList<Ocarta> cards) {
             adapter.clear();
             for (int i = 0; i < cards.size(); ++i) {
+                //añadimos en el adapter la informacion de las cartas seleccionadas , los datos precargados en objeto adapter de la clase cardsadapter
                 adapter.add(cards.get(i));
 
             }
