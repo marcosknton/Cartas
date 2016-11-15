@@ -123,19 +123,14 @@ public class CartasFragment extends Fragment {
         protected ArrayList<Ocarta> doInBackground(Void... voids) {
             //creariamos un objeto preference haciendo referencia al metodo de selección a traves de xml string dentro del paquete values y el pref_general dentro del paquetexml
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String srare=preferences.getString("rarity"," ");
-            String scolors=preferences.getString("colors"," ");
+            String srare=preferences.getString("rarity","Common");
+            String scolors=preferences.getString("colors","blue");
 
             CartasApi api = new CartasApi();
 
-            ArrayList<Ocarta> cards=api.getOcartas();
-            ArrayList<Ocarta> seleccion=new ArrayList<>();
-            for (int i = 0; i < cards.size(); i++) {
-                if (cards.get(i).getRarity().equals(srare)&cards.get(i).getColors().equals(scolors))seleccion.add(cards.get(i));
-
-            }
-
-            return seleccion;
+            ArrayList<Ocarta> cards=api.getOcartas2(srare,scolors);
+           
+            return cards;
         }
     //Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
     //de este metodo , extraer en este caso el titulo y añadirlo al adapter, que cargara los datons en el layout.
