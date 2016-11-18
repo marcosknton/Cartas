@@ -126,9 +126,10 @@ public class CartasFragment extends Fragment {
             String srare=preferences.getString("rarity","Common");
             String scolors=preferences.getString("colors","blue");
 
-            CartasApi api = new CartasApi();
+            //CartasApi api = new CartasApi();
 
-            ArrayList<Ocarta> cards=api.getOcartas2(srare,scolors);
+            ArrayList<Ocarta> cards= CartasApi.getOcartas2(srare,scolors);
+
 
             return cards;
         }
