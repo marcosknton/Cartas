@@ -29,12 +29,13 @@
             android:parentActivityName=".Cartas"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.a46453895j.cartas.Cartas" />
-
-
         </activity>
+           <provider
+                android:name=".Contentprovider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"/>
     </application>
 
 </manifest>

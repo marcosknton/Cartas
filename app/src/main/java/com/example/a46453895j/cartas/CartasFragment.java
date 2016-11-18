@@ -129,7 +129,7 @@ public class CartasFragment extends Fragment {
             CartasApi api = new CartasApi();
 
             ArrayList<Ocarta> cards=api.getOcartas2(srare,scolors);
-           
+
             return cards;
         }
     //Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
