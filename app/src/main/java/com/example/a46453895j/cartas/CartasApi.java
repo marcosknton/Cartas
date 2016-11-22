@@ -21,15 +21,12 @@ public class CartasApi {
 
     }
 
-    private String url = "https://api.magicthegathering.io/v1/cards?";
+    private static String url = "https://api.magicthegathering.io/v1/cards?";
 
     /**
      * @return devuelve un array con todos los objetos Ocarta
      */
-
-
-
-    public ArrayList<Ocarta> getOcartas2(String titulo1, String titulo2) {
+    public static ArrayList<Ocarta> getOcartas2(String titulo1, String titulo2) {
         ArrayList<Ocarta> lista = new ArrayList<>();
         Uri builtUri = Uri.parse(url)
                 .buildUpon()

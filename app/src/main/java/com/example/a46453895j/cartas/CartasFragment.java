@@ -2,6 +2,7 @@ package com.example.a46453895j.cartas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -18,11 +19,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
 
 import static android.R.id.list;
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -117,23 +119,26 @@ public class CartasFragment extends Fragment {
 
     //Clase que extiende de AsynTask, la cual necesitaremos para trabajar en 2 plano, ya que en primer plano si se demora
     //la ejecución en el tiempo nos fallará la conexión
-    class RefreshAsyncTask extends AsyncTask<Void, Void, ArrayList<Ocarta>> {
+    class RefreshAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         //devuelve un array list de objetos Ocarta() para trabajar en 2 plano
-        protected ArrayList<Ocarta> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
             //creariamos un objeto preference haciendo referencia al metodo de selección a traves de xml string dentro del paquete values y el pref_general dentro del paquetexml
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String srare=preferences.getString("rarity","Common");
-            String scolors=preferences.getString("colors","blue");
+            String scolors=preferences.getString("colors","Blue");
 
             //CartasApi api = new CartasApi();
 
+            //
             ArrayList<Ocarta> cards= CartasApi.getOcartas2(srare,scolors);
+           //clase con el que crearemos la base de datos
+            DataManager.saveCartas(cards,getContext());
+            DataManager.deleteCartas(getContext());
 
-
-            return cards;
+            return null;
         }
-    //Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
+    /*Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
     //de este metodo , extraer en este caso el titulo y añadirlo al adapter, que cargara los datons en el layout.
         @Override
         protected void onPostExecute(ArrayList<Ocarta> cards) {
@@ -143,7 +148,8 @@ public class CartasFragment extends Fragment {
                 adapter.add(cards.get(i));
 
             }
+       */
         }
     }
 
-}
+
