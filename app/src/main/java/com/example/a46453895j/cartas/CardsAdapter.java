@@ -19,16 +19,22 @@ import java.util.List;
  */
 
 public class CardsAdapter extends ArrayAdapter <Ocarta> {
-
+    //context punto de partida al que se ceñirá para su ciclo de vida
+    //List objeto del que obtendremos la información
     public CardsAdapter(Context context, int resource, List<Ocarta> objects){
         super(context,resource,objects);
     }
 
-
+    //reciclaje de la lista cadavez que deslicemos con el dedo la pantalla
     @Override
+
+    //view convertview la propia vista
+    //viewgroup parent la vista padre
     public View getView(int position, View convertView, ViewGroup parent) {
         Ocarta carta=getItem(position);
 
+        //si convertview es null (no existe )no reciclamos si no que la inflamos
+        //una vez creada el convertview se reciclara automáticamente
         if (convertView==null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.titulo_cartas, parent, false);
