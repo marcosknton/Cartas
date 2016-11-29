@@ -24,6 +24,7 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Ocarta>{
     }
 
     @Override
+    //crea una vista nueva con los elementos , llamará a tantas veces como elementos quepan en la pantalla
     public View newView(Context context, Ocarta model, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View convertView = inflater.inflate(R.layout.titulo_cartas, parent, false);
@@ -31,6 +32,7 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Ocarta>{
     }
 
     @Override
+    //recicla la vistacreada en el newview
     public void bindView(View view, Context context, Ocarta carta) {
         ;
         TextView color=(TextView) view.findViewById(R.id.Tvcolor);

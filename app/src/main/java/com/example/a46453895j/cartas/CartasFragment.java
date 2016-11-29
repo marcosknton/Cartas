@@ -2,14 +2,15 @@ package com.example.a46453895j.cartas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,23 +18,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.io.Serializable;
-import java.util.ArrayList;
-import nl.littlerobots.cupboard.tools.provider.UriHelper;
+import android.support.v4.widget.CursorAdapter;
 
-import static android.R.id.list;
-import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class CartasFragment extends Fragment {
+public class CartasFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private ArrayList<Ocarta> items;
-    private CardsAdapter adapter;
-
+   // private ArrayList<Ocarta> items;
+    //private CardsAdapter adapter;
+    private CartasCursorAdapter adapter;
     public CartasFragment() {
     }
 
@@ -62,9 +60,10 @@ public class CartasFragment extends Fragment {
         //con el metodo asList podemos introducir dentro de un array dinamica mas de una string a traves de un array de strings
         items = new ArrayList<>(Arrays.asList(data));
 */
-        items = new ArrayList<>();
+        //items = new ArrayList<>();
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, y por los datos de cada item
-        adapter = new CardsAdapter(getContext(), R.layout.titulo_cartas, items);
+        //adapter = new CardsAdapter(getContext(), R.layout.titulo_cartas, items);
+        adapter=new CartasCursorAdapter(getContext(),Ocarta.class);
         //al list view lo inflamos con el adapter
         lvCartas.setAdapter(adapter);
 
@@ -86,7 +85,7 @@ public class CartasFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-
+    getLoaderManager().initLoader(0,null, this);
         return view;
     }
 
@@ -116,6 +115,24 @@ public class CartasFragment extends Fragment {
         RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
         refreshAsyncTask.execute();
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
+    }
+
+
+
 
     //Clase que extiende de AsynTask, la cual necesitaremos para trabajar en 2 plano, ya que en primer plano si se demora
     //la ejecución en el tiempo nos fallará la conexión
