@@ -15,7 +15,9 @@ public class Ocarta implements Serializable{
 
 
 
+    public Ocarta(){
 
+    }
 
 
     public Ocarta(String titulo, String types, String imageUrl, String rarity, String colors, String descripcion) {

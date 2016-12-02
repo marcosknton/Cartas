@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -149,9 +150,12 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
 
             //
             ArrayList<Ocarta> cards= CartasApi.getOcartas2(srare,scolors);
+
+           // Log.d("XXXXX", cards.toString());
            //clase con el que crearemos la base de datos
+
+            //DataManager.deleteCartas(getContext());
             DataManager.saveCartas(cards,getContext());
-            DataManager.deleteCartas(getContext());
 
             return null;
         }
