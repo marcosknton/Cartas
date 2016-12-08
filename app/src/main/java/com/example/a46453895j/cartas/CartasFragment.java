@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v4.widget.CursorAdapter;
+import android.app.ProgressDialog;
 
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
    // private ArrayList<Ocarta> items;
     //private CardsAdapter adapter;
     private CartasCursorAdapter adapter;
+    private ProgressDialog dialog;
     public CartasFragment() {
     }
 
@@ -65,6 +67,11 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
         //el adaptador estará formado por getcontext,por el layout que repetiremos por item, y por los datos de cada item
         //adapter = new CardsAdapter(getContext(), R.layout.titulo_cartas, items);
         adapter=new CartasCursorAdapter(getContext(),Ocarta.class);
+
+        //cargamos un mensaje de cargando
+        dialog =new ProgressDialog((getContext()));
+        dialog.setMessage("Actualizando...");
+
         //al list view lo inflamos con el adapter
         lvCartas.setAdapter(adapter);
 
@@ -138,6 +145,14 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
     //Clase que extiende de AsynTask, la cual necesitaremos para trabajar en 2 plano, ya que en primer plano si se demora
     //la ejecución en el tiempo nos fallará la conexión
     class RefreshAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            ////antes de mostrar las cartas que aparezca el mensaje
+            dialog.show();
+        }
+
         @Override
         //devuelve un array list de objetos Ocarta() para trabajar en 2 plano
         protected Void doInBackground(Void... voids) {
@@ -154,12 +169,20 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
            // Log.d("XXXXX", cards.toString());
            //clase con el que crearemos la base de datos
 
-            //DataManager.deleteCartas(getContext());
+            DataManager.deleteCartas(getContext());
             DataManager.saveCartas(cards,getContext());
 
             return null;
         }
-    /*Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //despues de mostrar las cartas que desaparezca el mensaje
+            dialog.dismiss();
+        }
+
+        /*Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
     //de este metodo , extraer en este caso el titulo y añadirlo al adapter, que cargara los datons en el layout.
         @Override
         protected void onPostExecute(ArrayList<Ocarta> cards) {
