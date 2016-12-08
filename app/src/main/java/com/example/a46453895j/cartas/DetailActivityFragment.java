@@ -1,15 +1,15 @@
 package com.example.a46453895j.cartas;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alexvasilkov.events.Events;
 import com.bumptech.glide.Glide;
 
 /**
@@ -23,6 +23,13 @@ public class DetailActivityFragment extends Fragment {
     private TextView Tvtitulodetalle;
 
     public DetailActivityFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //registrar el evento
+        Events.register(this);
     }
 
     @Override
@@ -40,6 +47,12 @@ public class DetailActivityFragment extends Fragment {
         }
         return view;
     }
+    //crear la suscripción al evento referenciado por un string
+    @Events.Subscribe("carta-seleccionada")
+    private void onCartaSelected(Ocarta carta){
+        updateUi(carta);
+    }
+
     private void updateUi(Ocarta carta){
 
         Ivdetalle=(ImageView)view.findViewById(R.id.Ivdetalle);

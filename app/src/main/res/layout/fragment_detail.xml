@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:id="@+id/Tvinfodetalle"
@@ -24,7 +24,7 @@
         android:layout_marginRight="16dp" />
 
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="0dp"
         android:layout_height="18dp"
         android:id="@+id/Tvtitulodetalle"

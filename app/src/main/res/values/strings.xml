@@ -85,4 +85,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_contentprovider">Contentprovider</string>
+    <string name="title_activity_main">Main</string>
 </resources>

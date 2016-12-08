@@ -32,10 +32,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.a46453895j.cartas.Cartas" />
         </activity>
-           <provider
-                android:name=".Contentprovider"
-                android:authorities="${applicationId}.provider"
-                android:exported="false"/>
+
+        <provider
+            android:name=".Contentprovider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false" />
+
+        <activity
+            android:name=".Main"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,8 @@ import android.support.v4.widget.CursorAdapter;
 import android.app.ProgressDialog;
 
 
+import com.alexvasilkov.events.Events;
+
 import java.util.ArrayList;
 
 /**
@@ -88,13 +90,32 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
 
                             Ocarta carta=(Ocarta) adapterView.getItemAtPosition(i);
                             //intent que cargará la activity
-                            Intent intent=new Intent(getContext(),DetailActivity.class);
-                            intent.putExtra("carta",carta);
-                            startActivity(intent);
+                            if(!esTablet()){
+                                Intent intent=new Intent(getContext(),DetailActivity.class);
+                                intent.putExtra("carta",carta);
+                                startActivity(intent);
+                            }
+                            else {
+                                Events.create("carta-seleccionada").param(carta).post();
+                            }
+
                         }
                     });
     getLoaderManager().initLoader(0,null, this);
         return view;
+    }
+
+    @Events.Subscribe("Start-dowloading-data")
+    void preRefresh(){
+        dialog.show();
+    }
+    @Events.Subscribe("finish-dowloading-data")
+    void afterRefresh(){
+        dialog.dismiss();
+    }
+
+    private boolean esTablet() {
+        return getResources().getBoolean(R.bool.tablet);
     }
 
     //inflamos el menu_cartas
@@ -118,9 +139,10 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
         public void onStart() {
             super.onStart();
             refresh();
+        Events.register(this);
         }
     public void refresh() {
-        RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
+        RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask(getActivity().getApplicationContext());
         refreshAsyncTask.execute();
     }
 
@@ -142,7 +164,7 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
 
 
 
-    //Clase que extiende de AsynTask, la cual necesitaremos para trabajar en 2 plano, ya que en primer plano si se demora
+    /*Clase que extiende de AsynTask, la cual necesitaremos para trabajar en 2 plano, ya que en primer plano si se demora
     //la ejecución en el tiempo nos fallará la conexión
     class RefreshAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -182,7 +204,7 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
             dialog.dismiss();
         }
 
-        /*Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
+        Como el método doInBackground no devuelve datos a la interfaz necesitamos del método OnPostExecute para recoger los datos
     //de este metodo , extraer en este caso el titulo y añadirlo al adapter, que cargara los datons en el layout.
         @Override
         protected void onPostExecute(ArrayList<Ocarta> cards) {
@@ -192,8 +214,10 @@ public class CartasFragment extends Fragment implements LoaderManager.LoaderCall
                 adapter.add(cards.get(i));
 
             }
+       }
        */
-        }
+
+
     }
 
 
